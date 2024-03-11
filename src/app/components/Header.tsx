@@ -150,12 +150,12 @@ export default function Header() {
               Plugins
             </Link>
           </li>
-          <li>
+          {/* <li>
             <Link href="/termos">
               <FontAwesomeIcon icon={faBook} />
               Termos
             </Link>
-          </li>
+          </li> */}
           <li>
             <button>
               <FontAwesomeIcon icon={faUser} />
