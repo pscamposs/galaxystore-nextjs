@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { ModalContext } from "../../context/use-modal-context";
 import PluginCard from "../PluginCard";
 import ModalTab from "./ModalTabs";
-import GeneralContent from "./tabs/GeneralContent";
-import PermissionsContent from "./tabs/PermissionContent";
-import UpdatesContent from "./tabs/UpdatesContent";
-import CommentsContent from "./tabs/CommentsContent";
+import GeneralContent from "./(tabs)/GeneralContent";
+import PermissionsContent from "./(tabs)/PermissionContent";
+import UpdatesContent from "./(tabs)/UpdatesContent";
+import CommentsContent from "./(tabs)/CommentsContent";
 
 const ModalContainer = styled.div<{ isOpen: boolean }>`
   visibility: ${(props) => (props.isOpen ? "visible" : "hidden")};
