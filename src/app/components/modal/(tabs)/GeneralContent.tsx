@@ -1,7 +1,14 @@
+import useModal from "@/app/hooks/useModal";
+
 export default function GeneralContent() {
+  const { plugin } = useModal();
+
   return (
     <div>
-      <h2>Geral</h2>
+      <div
+        className="product-des"
+        dangerouslySetInnerHTML={{ __html: plugin?.description as string }}
+      />
     </div>
   );
 }

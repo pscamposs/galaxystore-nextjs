@@ -1,4 +1,5 @@
 "use client";
+import { useFilter } from "@/app/hooks/useFilter";
 import {
   faChessKnight,
   faCoins,
@@ -8,7 +9,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
-import { useFilter } from "../hooks/useFilter";
 
 const PluginFilter = styled.div<{ selected: boolean }>`
   width: 100%;

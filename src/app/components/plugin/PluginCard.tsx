@@ -3,12 +3,17 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import DefaultIcon from "./DefaultIcon";
-import { ModalContext } from "../context/use-modal-context";
+import { ModalContext } from "@/app/context/use-modal-context";
+import { Plugin } from "@/types/FilterTypes";
+import Image from "next/image";
+import useModal from "@/app/hooks/useModal";
+import { centsToReal } from "@/utils/FormatUtils";
 
 const CardContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   background-color: var(--secondary-dark);
   text-align: center;
   max-height: 340px;
@@ -51,7 +56,7 @@ const CardButton = styled.button`
   background-color: var(--primary-dark);
   border: none;
   width: 100%;
-  padding: 12px 0;
+  padding: 16px;
   color: var(--primary-white);
   cursor: pointer;
   display: flex;
@@ -68,25 +73,33 @@ const CardButton = styled.button`
   }
 `;
 
-export default function PluginCard({ plugin }: { plugin: any }) {
-  const { toggleModal } = useContext(ModalContext);
+export default function PluginCard({ plugin }: { plugin?: Plugin }) {
+  const { toggleModal } = useModal();
+
+  const getPluginAction = () => {
+    if (plugin?.canEdit) return "Editar";
+    else if (plugin?.purchased || plugin?.price || 0 <= 0) return "Baixar";
+    else return "Comprar";
+  };
 
   return (
     <CardContainer>
       <div>
-        <img
-          src="/res/images/Default.svg"
-          alt=""
+        <Image
+          src={plugin?.icon || "/res/images/Default.svg"}
+          alt="pluginIcon"
           onClick={() => toggleModal(plugin)}
+          width={128}
+          height={128}
         />
-        <CardTag>Factions</CardTag>
-        <CardTitle>GalaxyTheBridge</CardTitle>
-        <CardPrice>R$ 60,00</CardPrice>
+        <CardTag>{plugin?.tag || "Exemplo"}</CardTag>
+        <CardTitle>{plugin?.name || "Nome de exemplo"}</CardTitle>
+        <CardPrice>{centsToReal(plugin?.price || 0) || "R$ 60,00"}</CardPrice>
       </div>
       <div>
         <CardButton>
           <FontAwesomeIcon icon={faCartShopping} />
-          Comprar
+          {getPluginAction()}
         </CardButton>
       </div>
     </CardContainer>

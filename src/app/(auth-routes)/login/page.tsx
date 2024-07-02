@@ -17,7 +17,7 @@ import FormComponent, {
   FormHeader,
   FormWrapper,
   Separator,
-} from "@/app/components/FormContainer";
+} from "@/app/components/plugin/FormContainer";
 import PasswordInput from "@/app/components/PasswordInput";
 
 export default function LoginPage() {
