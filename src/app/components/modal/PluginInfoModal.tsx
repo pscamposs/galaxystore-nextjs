@@ -1,7 +1,7 @@
 import { Suspense, useContext, useState } from "react";
 import styled from "styled-components";
 import { ModalContext } from "../../context/use-modal-context";
-import PluginCard from "../PluginCard";
+import PluginCard from "../plugin/PluginCard";
 import ModalTab from "./ModalTabs";
 import GeneralContent from "./(tabs)/GeneralContent";
 import PermissionsContent from "./(tabs)/PermissionContent";
@@ -68,15 +68,15 @@ export default function PluginInfoModal() {
         </ModalInfo>
         <ModalTabsContainer>
           <ModalTab target="Geral" />
-          <ModalTab target="Permissões" />
+          {/* <ModalTab target="Permissões" />
           <ModalTab target="Atualizações" />
-          <ModalTab target="Comentários" />
+          <ModalTab target="Comentários" /> */}
         </ModalTabsContainer>
         <Suspense fallback={<div>Carregando conteúdo...</div>}>
           {tab === "Geral" && <GeneralContent />}
-          {tab === "Permissões" && <PermissionsContent />}
+          {/* {tab === "Permissões" && <PermissionsContent />}
           {tab === "Atualizações" && <UpdatesContent />}
-          {tab === "Comentários" && <CommentsContent />}
+          {tab === "Comentários" && <CommentsContent />} */}
         </Suspense>
       </ModalContent>
     </ModalContainer>
