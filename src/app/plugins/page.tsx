@@ -1,18 +1,11 @@
 "use client";
 import styled from "styled-components";
 import { ContentContainer } from "../components/ContentContainer";
-import Footer from "../components/Footer";
-import { PluginFilters } from "../components/PluginFilters";
-import { PluginSearchWIcon } from "../components/PluginSearchWIcon";
-import {
-  FilterContext,
-  FilterProvider,
-} from "@/app/context/use-filter-context";
-import { useContext } from "react";
-import { useFilter } from "../hooks/useFilter";
-import DefaultIcon from "../components/DefaultIcon";
-import PluginCard from "../components/PluginCard";
+
 import PluginInfoModal from "../components/modal/PluginInfoModal";
+import { PluginSearchWIcon } from "../components/plugin/PluginSearchWIcon";
+import { PluginFilters } from "../components/plugin/PluginFilters";
+import PluginCard from "../components/plugin/PluginCard";
 
 const PluginSection = styled.section`
   margin-top: 24px;
