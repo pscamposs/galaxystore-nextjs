@@ -3,7 +3,14 @@
 import Link from "next/link";
 import styled from "styled-components";
 
-const FooterContainer = styled.footer`
+const Footer = styled.footer`
+  width: 100vw;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+`;
+
+const FooterContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -41,24 +48,26 @@ const FooterContainer = styled.footer`
   }
 `;
 
-export default function Footer() {
+export default function FooterComponent() {
   return (
-    <FooterContainer>
-      <div>
-        <h4>Copyright © Galaxy Store - 2024</h4>
-        <p> Este site não possui quaisquer vinculos com a Mojang AB.</p>
-      </div>
-      <ul>
-        <li>
-          <Link href="/termos">Termos de Uso</Link>
-        </li>
-        <li>
-          <Link href="/sobre">Sobre</Link>
-        </li>
-        <li>
-          <Link href="/suporte">Suporte</Link>
-        </li>
-      </ul>
-    </FooterContainer>
+    <Footer>
+      <FooterContainer>
+        <div>
+          <h4>Copyright © Galaxy Store - 2024</h4>
+          <p> Este site não possui quaisquer vinculos com a Mojang AB.</p>
+        </div>
+        <ul>
+          <li>
+            <Link href="/termos">Termos de Uso</Link>
+          </li>
+          <li>
+            <Link href="/sobre">Sobre</Link>
+          </li>
+          <li>
+            <Link href="/suporte">Suporte</Link>
+          </li>
+        </ul>
+      </FooterContainer>
+    </Footer>
   );
 }
