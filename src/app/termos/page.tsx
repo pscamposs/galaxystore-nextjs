@@ -1,6 +1,6 @@
 "use client";
 import styled from "styled-components";
-import { ContentContainer } from "../components/ContentContainer";
+import { ContentContainer } from "../../components/ContentContainer";
 import Link from "next/link";
 
 const TermsContainer = styled.div`

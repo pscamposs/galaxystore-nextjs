@@ -12,13 +12,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import Image from "next/image";
-import { ContentContainer } from "@/app/components/ContentContainer";
+import { ContentContainer } from "@/components/ContentContainer";
 import FormComponent, {
   FormHeader,
   FormWrapper,
   Separator,
-} from "@/app/components/plugin/FormContainer";
-import PasswordInput from "@/app/components/PasswordInput";
+} from "@/components/plugin/FormContainer";
+import PasswordInput from "@/components/PasswordInput";
 
 export default function LoginPage() {
   return (

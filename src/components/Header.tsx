@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
 import Link from "next/link";
 import styled from "styled-components";
-import logo from "../../../public/res/images/galaxy-logo.png";
+import logo from "../../public/res/images/galaxy-logo.png";
 import { useState } from "react";
 
 const MainHeader = styled.header`

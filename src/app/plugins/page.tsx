@@ -1,11 +1,11 @@
 "use client";
 import styled from "styled-components";
-import { ContentContainer } from "../components/ContentContainer";
+import { ContentContainer } from "../../components/ContentContainer";
 
-import PluginInfoModal from "../components/modal/PluginInfoModal";
-import { PluginSearchWIcon } from "../components/plugin/PluginSearchWIcon";
-import { PluginFilters } from "../components/plugin/PluginFilters";
-import PluginCard from "../components/plugin/PluginCard";
+import PluginInfoModal from "../../components/modal/PluginInfoModal";
+import { PluginSearchWIcon } from "../../components/plugin/PluginSearchWIcon";
+import { PluginFilters } from "../../components/plugin/PluginFilters";
+import PluginCard from "../../components/plugin/PluginCard";
 
 const PluginSection = styled.section`
   margin-top: 24px;

@@ -1,5 +1,5 @@
 "use client";
-import { useFilter } from "@/app/hooks/useFilter";
+import { useFilter } from "@/hooks/useFilter";
 import {
   faChessKnight,
   faCoins,

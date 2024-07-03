@@ -1,12 +1,16 @@
 import React, { useContext } from "react";
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowDown,
+  faCartShopping,
+  faPen,
+} from "@fortawesome/free-solid-svg-icons";
 import DefaultIcon from "./DefaultIcon";
-import { ModalContext } from "@/app/context/use-modal-context";
+import { ModalContext } from "@/context/use-modal-context";
 import { Plugin } from "@/types/FilterTypes";
 import Image from "next/image";
-import useModal from "@/app/hooks/useModal";
+import useModal from "@/hooks/useModal";
 import { centsToReal } from "@/utils/FormatUtils";
 
 const CardContainer = styled.div`
@@ -73,13 +77,19 @@ const CardButton = styled.button`
   }
 `;
 
-export default function PluginCard({ plugin }: { plugin?: Plugin }) {
+export default function PluginCard({ plugin }: { plugin?: Plugin | null }) {
   const { toggleModal } = useModal();
 
   const getPluginAction = () => {
     if (plugin?.canEdit) return "Editar";
     else if (plugin?.purchased || plugin?.price || 0 <= 0) return "Baixar";
     else return "Comprar";
+  };
+
+  const getPluginIcon = () => {
+    if (plugin?.canEdit) return faPen;
+    else if (plugin?.purchased || plugin?.price || 0 <= 0) return faArrowDown;
+    else return faCartShopping;
   };
 
   return (
@@ -98,7 +108,7 @@ export default function PluginCard({ plugin }: { plugin?: Plugin }) {
       </div>
       <div>
         <CardButton>
-          <FontAwesomeIcon icon={faCartShopping} />
+          <FontAwesomeIcon icon={getPluginIcon()} />
           {getPluginAction()}
         </CardButton>
       </div>

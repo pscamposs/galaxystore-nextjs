@@ -1,4 +1,4 @@
-import useModal from "@/app/hooks/useModal";
+import useModal from "@/hooks/useModal";
 
 export default function GeneralContent() {
   const { plugin } = useModal();

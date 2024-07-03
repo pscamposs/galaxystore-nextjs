@@ -1,6 +1,6 @@
 "use client";
 
-import PluginCard from "@/app/components/plugin/PluginCard";
+import PluginCard from "@/components/plugin/PluginCard";
 import Image from "next/image";
 import React from "react";
 import styled from "styled-components";

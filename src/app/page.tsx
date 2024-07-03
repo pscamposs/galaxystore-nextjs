@@ -1,7 +1,7 @@
 "use client";
 
 import styled from "styled-components";
-import { ContentContainer } from "./components/ContentContainer";
+import { ContentContainer } from "../components/ContentContainer";
 import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faShop } from "@fortawesome/free-solid-svg-icons";
