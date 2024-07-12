@@ -6,6 +6,10 @@ import PluginInfoModal from "../../components/modal/PluginInfoModal";
 import { PluginSearchWIcon } from "../../components/plugin/PluginSearchWIcon";
 import { PluginFilters } from "../../components/plugin/PluginFilters";
 import PluginCard from "../../components/plugin/PluginCard";
+import { useQuery } from "@tanstack/react-query";
+import { FilterType, Plugin } from "@/types/FilterTypes";
+import { use, useEffect, useState } from "react";
+import { useFilter } from "@/hooks/useFilter";
 
 const PluginSection = styled.section`
   margin-top: 24px;
@@ -37,7 +41,43 @@ const PluginsSection = styled.section`
   }
 `;
 
+const fetchPlugins = async () => {
+  const response = await fetch(`${process.env.API_URL}/plugins`, {
+    method: "POST",
+  });
+  const json = await response.json();
+  return json;
+};
+
 export default function PluginsHome() {
+  const query = useQuery({ queryKey: ["plugins"], queryFn: fetchPlugins });
+
+  const { filterTag, filterName } = useFilter();
+
+  const [plugins, setPlugins] = useState<Plugin[]>();
+  useEffect(() => {
+    if (filterTag !== 0) {
+      let items = plugins;
+      let tag = FilterType[filterTag];
+      let filteredItems = items?.filter(
+        (item) => item.category?.toLocaleLowerCase() === tag.toLocaleLowerCase()
+      );
+      setPlugins(filteredItems);
+    } else {
+      setPlugins(query.data);
+    }
+
+    if (filterName) {
+      setPlugins((prev) =>
+        prev?.filter((plugin) =>
+          plugin?.name
+            ?.toLocaleLowerCase()
+            .includes(filterName?.toLocaleLowerCase())
+        )
+      );
+    }
+  }, [query.data, filterTag, filterName]);
+
   return (
     <ContentContainer>
       <PluginInfoModal />
@@ -49,8 +89,9 @@ export default function PluginsHome() {
             <PluginFilters />
           </div>
           <PluginsSection>
-            <PluginCard />
-            <PluginCard />
+            {plugins?.map((plugin: Plugin) => (
+              <PluginCard key={plugin._id} plugin={plugin} />
+            ))}{" "}
           </PluginsSection>
         </div>
       </PluginSection>

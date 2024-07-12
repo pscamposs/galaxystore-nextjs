@@ -27,6 +27,8 @@ export default function PasswordInput() {
       <input
         type={isVisible ? "text" : "password"}
         placeholder="Senha de login"
+        name="password"
+        required
       />
 
       <FontAwesomeIcon

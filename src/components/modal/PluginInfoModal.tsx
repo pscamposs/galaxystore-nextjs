@@ -55,7 +55,7 @@ const ModalTabsContainer = styled.div`
 `;
 
 export default function PluginInfoModal() {
-  const { isOpen, toggleModal, tab } = useContext(ModalContext);
+  const { isOpen, toggleModal, tab, plugin } = useContext(ModalContext);
 
   return (
     <ModalContainer isOpen={isOpen}>
@@ -63,8 +63,8 @@ export default function PluginInfoModal() {
       <ModalContent isOpen={isOpen}>
         <h2>Detalhes do Plugin</h2>
         <ModalInfo>
-          <PluginCard />
-          <p>Downloads: 5</p>
+          <PluginCard plugin={plugin} edit={false} />
+          <p>Downloads: {plugin?.downloads}</p>
         </ModalInfo>
         <ModalTabsContainer>
           <ModalTab target="Geral" />

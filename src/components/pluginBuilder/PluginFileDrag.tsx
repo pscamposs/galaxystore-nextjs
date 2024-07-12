@@ -63,7 +63,7 @@ export default function PluginFileDrag({ setFile, file }: FileDragProps) {
     >
       <input
         type="file"
-        name="plugin"
+        name="file"
         id="plugin"
         ref={fileDialogRef}
         onChange={handlePluginFile}

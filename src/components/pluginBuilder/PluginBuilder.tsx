@@ -6,21 +6,25 @@ import styled from "styled-components";
 import PluginFileDrag from "./PluginFileDrag";
 
 const PluginDialog = styled.div`
+  width: 100%;
   position: absolute;
   top: 0;
-  width: 100%;
+  left: 0;
+  z-index: 999;
+
+  padding: 2rem;
+
   height: 100vh;
-  z-index: 100;
-  background-color: rgba(0, 0, 0, 50%);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: aliceblue;
-  border: none;
+  overflow: hidden;
+
+  background-color: rgba(0, 0, 0, 0.7);
 
   form {
+    width: 100%;
     background-color: var(--primary-dark);
     padding: 16px 32px;
+    display: flex;
+    flex-wrap: wrap;
   }
 
   label {
@@ -40,9 +44,6 @@ const PluginDialog = styled.div`
     padding: 12px 4px;
     font-size: 1.1rem;
     outline: none;
-    max-width: 500px;
-    min-width: 500px;
-    max-height: 200px;
   }
 
   button {
@@ -64,11 +65,6 @@ const PluginDialog = styled.div`
   }
   #cancel {
     color: #fc7d75;
-  }
-
-  #pluginForm {
-    display: flex;
-    gap: 12px;
   }
 
   #pluginFileDialog {
@@ -93,35 +89,39 @@ const PluginDialog = styled.div`
 
 export default function PluginBuilder({
   setDialogOpen,
+  title,
+  editPlugin,
 }: {
   setDialogOpen: any;
+  title: string;
+  editPlugin?: Plugin;
 }) {
-  const [plugin, setPlugin] = useState<Plugin | null>({
-    canEdit: true,
-  });
+  const [plugin, setPlugin] = useState<any>(
+    editPlugin ?? {
+      canEdit: true,
+    }
+  );
   const [file, setFile] = useState<File | null>();
 
   return (
     <PluginDialog>
-      <div>
-        <section>
-          <h2>Criar novo plugin</h2>
-          <p>Adicione as informações necessárias</p>
-          <div id="pluginForm">
-            <PluginBuilderForm
-              setDialogOpen={setDialogOpen}
-              setPlugin={setPlugin}
-              setFile={setFile}
-              file={file}
-              plugin={plugin}
-            />
-            <PluginFileDrag setFile={setFile} file={file} />
-          </div>
-        </section>
-        <section>
-          <PluginCard plugin={plugin} />
-        </section>
-      </div>
+      <section>
+        <h2>{title}</h2>
+        <p>Adicione as informações necessárias</p>
+        <div>
+          <PluginBuilderForm
+            setDialogOpen={setDialogOpen}
+            setPlugin={setPlugin}
+            setFile={setFile}
+            file={file}
+            plugin={plugin}
+            editing={!!editPlugin}
+          />
+        </div>
+      </section>
+      {/* <section>
+        <PluginCard plugin={plugin} edit={false} />
+      </section> */}
     </PluginDialog>
   );
 }

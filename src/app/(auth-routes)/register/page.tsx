@@ -21,6 +21,25 @@ import FormComponent, {
 import PasswordInput from "@/components/PasswordInput";
 
 export default function LoginPage() {
+  const handleRegister = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let formData = new FormData(e.target as HTMLFormElement);
+
+    let username = formData.get("username");
+    let email = formData.get("email");
+
+    let password = formData.get("password");
+
+    let response = await fetch(`${process.env.API_URL}/auth/register`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "Application/Json",
+      },
+      body: JSON.stringify({ username, email, password }),
+    });
+  };
+
   return (
     <ContentContainer>
       <FormComponent>
@@ -29,14 +48,14 @@ export default function LoginPage() {
           <h1>Galaxy Store</h1>
           <p>Olá! é bom ter você aqui</p>
         </FormHeader>
-        <form action="#">
+        <form onSubmit={handleRegister}>
           <FormWrapper>
             <FontAwesomeIcon icon={faUser} />
-            <input type="text" placeholder="Seu usuário" />
+            <input type="text" placeholder="Seu usuário" name="username" />
           </FormWrapper>
           <FormWrapper>
             <FontAwesomeIcon icon={faEnvelope} />
-            <input type="text" placeholder="Seu email" />
+            <input type="text" placeholder="Seu email" name="email" />
           </FormWrapper>
           <FormWrapper>
             <FontAwesomeIcon icon={faLock} />
@@ -44,7 +63,11 @@ export default function LoginPage() {
           </FormWrapper>
           <FormWrapper>
             <FontAwesomeIcon icon={faLock} />
-            <input type="password" placeholder="Repita sua senha" />
+            <input
+              type="password"
+              placeholder="Repita sua senha"
+              name="repeat_password"
+            />
           </FormWrapper>
           <FormWrapper>
             <label htmlFor="terms">

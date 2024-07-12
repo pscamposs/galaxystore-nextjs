@@ -1,7 +1,6 @@
 "use client";
 
 import styled from "styled-components";
-import { FilterProvider } from "../context/use-filter-context";
 import ModalContextProvider from "../context/use-modal-context";
 
 const Container = styled.div`
@@ -11,10 +10,8 @@ const Container = styled.div`
 
 export function ContentContainer({ children }: { children: React.ReactNode }) {
   return (
-    <FilterProvider>
-      <ModalContextProvider>
-        <Container>{children}</Container>
-      </ModalContextProvider>
-    </FilterProvider>
+    <ModalContextProvider>
+      <Container>{children}</Container>
+    </ModalContextProvider>
   );
 }

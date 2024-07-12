@@ -20,6 +20,10 @@ const nextConfig = {
       },
     ],
   },
+  env: {
+    API_URL: "http://localhost:8080", //https://galaxybackend.onrender.com,
+    NEXTAUTH_SECRET: "c16de8254bfc5688cba0c54a1bcc67968b857a7f",
+  },
 };
 
 export default nextConfig;

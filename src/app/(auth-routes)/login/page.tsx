@@ -3,6 +3,7 @@ import styled from "styled-components";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import logo from "../../../../public/res/images/galaxy-logo.png";
+import { signIn } from "next-auth/react";
 
 import {
   faEnvelope,
@@ -21,6 +22,22 @@ import FormComponent, {
 import PasswordInput from "@/components/PasswordInput";
 
 export default function LoginPage() {
+  const handleLogin = async (e: React.FormEvent) => {
+    e.preventDefault();
+
+    let formData = new FormData(e.target as HTMLFormElement);
+
+    let username = formData.get("username");
+    let password = formData.get("password");
+
+    signIn("credentials", {
+      redirect: true,
+      callbackUrl: "/profile",
+      username,
+      password,
+    });
+  };
+
   return (
     <ContentContainer>
       <FormComponent>
@@ -29,10 +46,15 @@ export default function LoginPage() {
           <h1>Galaxy Store</h1>
           <p>Seja bem-vindo, efetue o seu login</p>
         </FormHeader>
-        <form action="#">
+        <form onSubmit={handleLogin}>
           <FormWrapper>
             <FontAwesomeIcon icon={faEnvelope} />
-            <input type="text" placeholder="Nome de usuário ou email" />
+            <input
+              type="text"
+              placeholder="Nome de usuário ou email"
+              name="username"
+              required
+            />
           </FormWrapper>
           <FormWrapper>
             <FontAwesomeIcon icon={faLock} />

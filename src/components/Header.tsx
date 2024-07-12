@@ -2,6 +2,7 @@
 import {
   faBars,
   faBook,
+  faCartShopping,
   faHome,
   faPlug,
   faUser,
@@ -13,6 +14,7 @@ import Link from "next/link";
 import styled from "styled-components";
 import logo from "../../public/res/images/galaxy-logo.png";
 import { useState } from "react";
+import ShopCart from "./ShopCart";
 
 const MainHeader = styled.header`
   width: 100%;
@@ -83,7 +85,7 @@ const MainList = styled.ul`
     color: var(--draft-color);
   }
 
-  li button {
+  li #profile {
     padding: 12px 8px;
     border: none;
     cursor: pointer;
@@ -150,6 +152,11 @@ export default function Header() {
               Plugins
             </Link>
           </li>
+          <li>
+            <Link href="/cart">
+              <ShopCart />
+            </Link>
+          </li>
           {/* <li>
             <Link href="/termos">
               <FontAwesomeIcon icon={faBook} />
@@ -157,10 +164,10 @@ export default function Header() {
             </Link>
           </li> */}
           <li>
-            <button>
+            <Link href="/profile" id="profile">
               <FontAwesomeIcon icon={faUser} />
               Área do Cliente
-            </button>
+            </Link>
           </li>
         </MainList>
       </nav>

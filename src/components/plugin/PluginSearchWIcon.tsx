@@ -1,4 +1,5 @@
 "use client";
+import { useFilter } from "@/hooks/useFilter";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
@@ -14,7 +15,16 @@ const PluginSearch = styled.input`
 `;
 
 const PluginSearchComponent = () => {
-  return <PluginSearch type="search" placeholder="Procurar plugin..." />;
+  const { updateFilterName, filterName } = useFilter();
+
+  return (
+    <PluginSearch
+      type="search"
+      placeholder="Procurar plugin..."
+      onChange={(e) => updateFilterName(e.target.value)}
+      value={filterName}
+    />
+  );
 };
 
 const SearchContainer = styled.div`

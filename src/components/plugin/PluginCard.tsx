@@ -12,6 +12,9 @@ import { Plugin } from "@/types/FilterTypes";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
 import { centsToReal } from "@/utils/FormatUtils";
+import useCart from "@/hooks/useCart";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
 
 const CardContainer = styled.div`
   display: flex;
@@ -47,67 +50,126 @@ const CardTag = styled.p`
 
 const CardTitle = styled.h2`
   margin: 8px 0;
-  font-weight: 500;
 `;
 
 const CardPrice = styled.p`
   margin: 8px 0;
-  font-weight: 600;
+
   font-size: 1.4rem;
 `;
 
 const CardButton = styled.button`
   background-color: var(--primary-dark);
   border: none;
-  width: 100%;
-  padding: 16px;
+
   color: var(--primary-white);
   cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 
-  &:hover {
-    background-color: var(--secondary-white);
-    color: var(--primary-dark);
-  }
+  width: 100%;
+  padding: 8px 32px;
 
   svg {
     margin-right: 5px;
   }
 `;
 
-export default function PluginCard({ plugin }: { plugin?: Plugin | null }) {
+export default function PluginCard({
+  plugin,
+  edit = false,
+  setDialogOpen,
+  setEditPlugin,
+}: {
+  plugin?: Plugin | null;
+  edit?: boolean;
+  setDialogOpen?: any;
+  setEditPlugin?: any;
+}) {
+  const { data: session } = useSession();
   const { toggleModal } = useModal();
+  const { addToCart } = useCart();
 
   const getPluginAction = () => {
-    if (plugin?.canEdit) return "Editar";
-    else if (plugin?.purchased || plugin?.price || 0 <= 0) return "Baixar";
-    else return "Comprar";
+    if (plugin?.purchased || ((plugin?.price ?? 0) <= 0 && !edit)) {
+      return "Baixar";
+    } else if (edit) {
+      return "Editar";
+    } else {
+      return "Comprar";
+    }
   };
 
   const getPluginIcon = () => {
-    if (plugin?.canEdit) return faPen;
-    else if (plugin?.purchased || plugin?.price || 0 <= 0) return faArrowDown;
-    else return faCartShopping;
+    if (plugin?.purchased || ((plugin?.price ?? 0) && !edit)) {
+      return faArrowDown;
+    } else if (edit) {
+      return faPen;
+    } else {
+      return faCartShopping;
+    }
+  };
+
+  const downloadPlugin = async () => {
+    try {
+      const token = session?.user.accessToken;
+      const response = await fetch(
+        `${process.env.API_URL}/plugin/${plugin?._id}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Falha ao baixar o plugin");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.style.display = "none";
+      a.href = url;
+      a.download = `${plugin?.name}.jar`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {}
+  };
+
+  const handlePluginButton = () => {
+    if (plugin) {
+      if (plugin.purchased) {
+        downloadPlugin();
+      } else if (edit) {
+        setEditPlugin(plugin);
+        setDialogOpen(true);
+      } else {
+        addToCart(plugin);
+      }
+    }
   };
 
   return (
     <CardContainer>
       <div>
         <Image
-          src={plugin?.icon || "/res/images/Default.svg"}
+          src={plugin?.image || "/res/images/Default.svg"}
           alt="pluginIcon"
           onClick={() => toggleModal(plugin)}
           width={128}
           height={128}
         />
-        <CardTag>{plugin?.tag || "Exemplo"}</CardTag>
+        <CardTag>{plugin?.category || "Exemplo"}</CardTag>
         <CardTitle>{plugin?.name || "Nome de exemplo"}</CardTitle>
         <CardPrice>{centsToReal(plugin?.price || 0) || "R$ 60,00"}</CardPrice>
       </div>
-      <div>
-        <CardButton>
+      <div
+        style={{
+          padding: 9,
+        }}
+      >
+        <CardButton onClick={handlePluginButton}>
           <FontAwesomeIcon icon={getPluginIcon()} />
           {getPluginAction()}
         </CardButton>
