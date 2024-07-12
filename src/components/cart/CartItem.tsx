@@ -1,3 +1,4 @@
+"use client";
 import useCart from "@/hooks/useCart";
 import { Plugin } from "@/types/FilterTypes";
 import { centsToReal } from "@/utils/FormatUtils";

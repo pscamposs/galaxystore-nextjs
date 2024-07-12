@@ -1,3 +1,4 @@
+"use client";
 import useCart from "@/hooks/useCart";
 import { faCartShopping } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

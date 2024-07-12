@@ -6,9 +6,10 @@ import Footer from "../components/Footer";
 import ModalContextProvider from "../context/use-modal-context";
 import { QueryClientProvider } from "@tanstack/react-query";
 import queryClient from "@/services/queryClient";
-import { CartContexProvider } from "@/context/use-cart-context";
 import { FilterProvider } from "@/context/use-filter-context";
 import { SessionProvider } from "next-auth/react";
+import { ClientOnly } from "@/context/clientOnly";
+import { CartContexProvider } from "@/context/use-cart-context";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,19 +21,21 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={inter.className}>
-        <QueryClientProvider client={queryClient}>
-          <SessionProvider>
-            <FilterProvider>
-              <CartContexProvider>
-                <ModalContextProvider>
-                  <Header />
-                  {children}
-                  {/*<Footer /> */}
-                </ModalContextProvider>
-              </CartContexProvider>
-            </FilterProvider>
-          </SessionProvider>
-        </QueryClientProvider>
+        <ClientOnly>
+          <CartContexProvider>
+            <QueryClientProvider client={queryClient}>
+              <SessionProvider>
+                <FilterProvider>
+                  <ModalContextProvider>
+                    <Header />
+                    {children}
+                    {/*<Footer /> */}
+                  </ModalContextProvider>
+                </FilterProvider>
+              </SessionProvider>
+            </QueryClientProvider>
+          </CartContexProvider>
+        </ClientOnly>
       </body>
     </html>
   );

@@ -84,7 +84,6 @@ export default function Home() {
             <Link href="/plugins">
               <FontAwesomeIcon icon={faShop} /> Loja
             </Link>
-            <Link href="/plugins">Sobre Nós</Link>
           </div>
         </PosterContainer>
       </section>
