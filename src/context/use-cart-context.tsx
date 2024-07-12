@@ -1,3 +1,4 @@
+"use client";
 import { Plugin } from "@/types/FilterTypes";
 import { useLocalStorage } from "@uidotdev/usehooks";
 import { createContext } from "react";
